@@ -2,6 +2,7 @@ package mohsin.reza.movieapp.di
 
 import dagger.Component
 import mohsin.reza.movieapp.MainActivity
+import mohsin.reza.movieapp.ui.HomeFragment
 
 import javax.inject.Singleton
 
@@ -14,4 +15,5 @@ import javax.inject.Singleton
 )
 interface AppComponent {
     fun inject(activity: MainActivity)
+    fun inject(homeFragment: HomeFragment)
 }

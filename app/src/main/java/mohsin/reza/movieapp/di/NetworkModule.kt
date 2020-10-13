@@ -7,6 +7,8 @@ import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import io.reactivex.schedulers.Schedulers
+import mohsin.reza.movieapp.network.MovieRepository
+import mohsin.reza.movieapp.network.MovieServices
 import mohsin.reza.movieapp.utils.scheduler.AppSchedulers
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -24,7 +26,7 @@ open class NetworkModule(val application: Application, private val versionName: 
     companion object {
         private const val PREFERENCES_NAME = "Network"
         private const val BASE_URL =
-            "http://api.openweathermap.org/data/2.5/weather/" // Used for Retrofit initialization only
+            "https://api.themoviedb.org/3" // Used for Retrofit initialization only
         private const val TIMEOUT = 3L
     }
 
@@ -77,15 +79,15 @@ open class NetworkModule(val application: Application, private val versionName: 
     fun providePreferences() =
         application.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)!!
 
-//    @Singleton
-//    @Provides
-//    fun provideWeatherService(retrofit: Retrofit): WeatherServices = retrofit.createApi()
-//
-//    @Singleton
-//    @Provides
-//    fun provideContentRepository(
-//        weatherServices: WeatherServices
-//    ) = ContentRepository(weatherServices)
+    @Singleton
+    @Provides
+    fun provideWeatherService(retrofit: Retrofit): MovieServices = retrofit.createApi()
+
+    @Singleton
+    @Provides
+    fun provideMovieRepository(
+        movieServices: MovieServices
+    ) = MovieRepository(movieServices)
 
     @Singleton
     @Provides

@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 
 @JsonClass(generateAdapter = true)
 @Parcelize
-data class Results(
+data class Movie(
     @Json(name = "popularity") val popularity: Double,
     @Json(name = "vote_count") val voteCount: Int,
     @Json(name = "video") val video: Boolean,

@@ -1,0 +1,82 @@
+import mohsin.reza.movieapp.Android
+import mohsin.reza.movieapp.Libs
+import mohsin.reza.movieapp.TestLibs
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+androidExtensions {
+    //To take advantage of Parcelarize
+    experimental = true
+}
+
+android {
+    compileSdkVersion Android.compileSdk
+    defaultConfig {
+        applicationId "mohsin.reza.weatherapp"
+        minSdkVersion Android.minSdk
+        targetSdkVersion Android.targetSdk
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    lintOptions {
+        // set to true to turn off analysis progress reporting by lint
+        quiet true
+        warningsAsErrors true
+        abortOnError true // Fail early.
+        baseline file("lint-baseline.xml")
+        lintConfig file('../lint.xml')
+        xmlReport false
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation Libs.appCompat
+    implementation Libs.constraintLayout
+    implementation Libs.dagger
+    kapt Libs.daggerCompiler
+    implementation Libs.glide
+    kapt Libs.glideCompiler
+    implementation Libs.glideTransformation
+    implementation Libs.jodaTime
+    implementation Libs.kotlin
+    implementation Libs.ktx
+    implementation Libs.lifecycleExt
+    implementation Libs.material
+    implementation Libs.moshi
+    kapt Libs.moshiCodegen
+    implementation Libs.okhttpLogging
+    implementation Libs.recyclerView
+    implementation Libs.retrofit
+    implementation Libs.retrofitMoshi
+    implementation Libs.retrofitRx
+    implementation Libs.rxAndroid
+    implementation Libs.rxKotlin
+    implementation Libs.timber
+
+    kaptAndroidTest Libs.daggerCompiler
+
+    testImplementation TestLibs.junit
+
+    testImplementation TestLibs.coreTesting
+    testImplementation TestLibs.junit
+    testImplementation TestLibs.mockk
+
+    androidTestImplementation TestLibs.espresso
+    androidTestImplementation TestLibs.rules
+    androidTestImplementation TestLibs.runner
+}

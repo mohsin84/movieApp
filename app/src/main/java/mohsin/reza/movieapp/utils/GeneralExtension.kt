@@ -1,15 +1,13 @@
 package mohsin.reza.movieapp.utils
 
-import android.app.Activity
 import android.content.Context
 import android.net.ConnectivityManager
-import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import kotlin.math.roundToInt
 
 inline fun <reified T : Fragment> FragmentManager.switchFragment(
     @IdRes containerId: Int,
@@ -35,8 +33,12 @@ val <T> List<T>?.safeSize: Int
     get() {
         return this?.size ?: 0
     }
+
+fun px3to2HeightFromWidth(widthPx: Int): Int = (widthPx * 1.5).roundToInt()
+
 val Context.isInternetConnected: Boolean
     get() {
-        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val connectivityManager =
+            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         return connectivityManager.activeNetworkInfo?.isConnected ?: false
     }

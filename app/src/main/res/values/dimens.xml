@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="home_carousel_bottom_padding">20dp</dimen>
+    <dimen name="shelve_item_width">106dp</dimen>
+    <dimen name="shelve_item_height">159dp</dimen>
+    <dimen name="spacing_l">16dp</dimen>
+    <dimen name="spacing_m">8dp</dimen>
+    <dimen name="spacing_ml">12dp</dimen>
+    <dimen name="spacing_none">0dp</dimen>
+    <dimen name="spacing_s">4dp</dimen>
+    <dimen name="spacing_sm">6dp</dimen>
+    <dimen name="spacing_xl">32dp</dimen>
+    <dimen name="spacing_xs">2dp</dimen>
+    <dimen name="spacing_xxl">48dp</dimen>
+    <dimen name="spacing_xxs">1dp</dimen>
+    <dimen name="spacing_xxxl">68dp</dimen>
+    <dimen name="textSize_l">18sp</dimen>
+    <dimen name="textSize_m">16sp</dimen>
+    <dimen name="textSize_s">14sp</dimen>
+    <dimen name="textSize_xl">20sp</dimen>
+    <dimen name="textSize_xs">12sp</dimen>
+    <dimen name="textSize_xxl">22sp</dimen>
+    <dimen name="textSize_xxs">10sp</dimen>
+
+</resources>

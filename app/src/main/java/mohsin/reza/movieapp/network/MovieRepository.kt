@@ -1,9 +1,7 @@
 package mohsin.reza.movieapp.network
 
 import io.reactivex.Observable
-import mohsin.reza.movieapp.network.model.Genres
-import mohsin.reza.movieapp.network.model.Images
-import mohsin.reza.movieapp.network.model.Movie
+import mohsin.reza.movieapp.network.model.*
 
 class MovieRepository(private val movieServices: MovieServices) {
     companion object {
@@ -17,9 +15,29 @@ class MovieRepository(private val movieServices: MovieServices) {
         private const val PAGE_PARAM = "&language=en-US&page=1"
     }
 
-    fun getPopularMoviesList(): Observable<List<Movie>> {
+    private val movieToShelveMapper: (Home) -> List<ShelveItem> = { home: Home ->
+        val hashMovies = HashMap<Int, MutableList<Movie>>()
+        val shelveItemList = mutableListOf<ShelveItem>()
+        home.results.forEach { movie ->
+            movie.genreIds.forEach {
+                val list: MutableList<Movie> = hashMovies.get(key = it) ?: mutableListOf()
+                list.add(movie)
+                // this is the main reason for using a HasMap rather two list,
+                // I don't need to do a find here to decide where to put Movie Item
+                hashMovies[it] = list
+            }
+        }
+        // no of keys (genreId) is constant max 19, based on the genreConfig so this is O(1)
+        hashMovies.entries.forEach {
+            shelveItemList.add(ShelveItem(it.key, it.value.toList()))
+        }
+        shelveItemList.asSequence().sortedBy { it.genreId }.toList()
+    }
+
+    fun getPopularMoviesList(): Observable<List<ShelveItem>> {
         val url = "$baseURL$POPULAR_END?$API_KEY_PARAM=$appId$LANGUAGE_PARAM$PAGE_PARAM"
-        return movieServices.getMovieData(url).map { it.results } ?: Observable.just(emptyList())
+        return movieServices.getMovieData(url)
+            .map(movieToShelveMapper) ?: Observable.just(emptyList())
     }
 
     fun getImageConfigList(): Observable<Images> {

@@ -26,7 +26,7 @@ open class NetworkModule(val application: Application, private val versionName: 
     companion object {
         private const val PREFERENCES_NAME = "Network"
         private const val BASE_URL =
-            "https://api.themoviedb.org/3" // Used for Retrofit initialization only
+            "https://api.themoviedb.org/3/" // Used for Retrofit initialization only
         private const val TIMEOUT = 3L
     }
 

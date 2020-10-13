@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import mohsin.reza.movieapp.network.MovieRepository
-import mohsin.reza.movieapp.network.model.Movie
 import mohsin.reza.movieapp.network.model.Resource
+import mohsin.reza.movieapp.network.model.ShelveItem
 import mohsin.reza.movieapp.utils.scheduler.Schedulers
 import javax.inject.Inject
 
@@ -18,9 +18,9 @@ class HomePageVM @Inject constructor(
 
     private val compositeDisposable = CompositeDisposable()
 
-    private val movieListMutableLiveData = MutableLiveData<Resource<List<Movie>>>()
+    private val movieListMutableLiveData = MutableLiveData<Resource<List<ShelveItem>>>()
 
-    val movieListLiveData: LiveData<Resource<List<Movie>>>
+    val movieListLiveData: LiveData<Resource<List<ShelveItem>>>
         get() = movieListMutableLiveData
 
     fun requestMovieList() {

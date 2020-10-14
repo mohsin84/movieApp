@@ -7,16 +7,17 @@
     android:layout_marginBottom="@dimen/spacing_ml">
 
     <TextView
-        android:id="@+id/item_standard_tile_carousel_text"
+        android:id="@+id/item_title_text"
         android:layout_width="0dp"
-        android:layout_height="@dimen/spacing_l"
+        android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/spacing_m"
         android:layout_marginEnd="@dimen/spacing_m"
         android:ellipsize="end"
         android:gravity="center_vertical"
         android:maxLines="1"
         android:textColor="@android:color/white"
-        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textSize="@dimen/textSize_l"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -30,11 +31,10 @@
         android:clipToPadding="false"
         android:minHeight="@dimen/shelve_item_height"
         android:orientation="horizontal"
-        app:flingSpeed="0.5"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/item_standard_tile_carousel_text"
+        app:layout_constraintTop_toBottomOf="@+id/item_title_text"
         tools:listitem="@layout/item_shelve_movie_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

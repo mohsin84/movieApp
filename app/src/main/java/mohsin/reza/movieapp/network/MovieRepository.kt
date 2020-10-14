@@ -1,7 +1,11 @@
 package mohsin.reza.movieapp.network
 
 import io.reactivex.Observable
-import mohsin.reza.movieapp.network.model.*
+import mohsin.reza.movieapp.network.model.Genres
+import mohsin.reza.movieapp.network.model.Home
+import mohsin.reza.movieapp.network.model.Images
+import mohsin.reza.movieapp.network.model.Movie
+import mohsin.reza.movieapp.network.model.ShelveItem
 
 class MovieRepository(private val movieServices: MovieServices) {
     companion object {

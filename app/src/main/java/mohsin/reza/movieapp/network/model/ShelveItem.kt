@@ -2,7 +2,7 @@ package mohsin.reza.movieapp.network.model
 
 data class ShelveItem(
     val genreId: Int,
-    val movie: List<Movie>
+    val movieList: List<Movie>
 )
 
 enum class GenreType(val Id: Int, val genreTitle: String) {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="home_carousel_bottom_padding">20dp</dimen>
+    <dimen name="home_carousel_bottom_padding">18dp</dimen>
     <dimen name="shelve_item_width">106dp</dimen>
     <dimen name="shelve_item_height">159dp</dimen>
     <dimen name="spacing_l">16dp</dimen>

@@ -7,6 +7,6 @@ import kotlinx.android.parcel.Parcelize
 
 @JsonClass(generateAdapter = true)
 @Parcelize
-data class GenreResult (
-		@Json(name = "genres") val genres : List<Genres>
-): Parcelable
+data class GenreResult(
+    @Json(name = "genres") val genres: List<Genres>
+) : Parcelable

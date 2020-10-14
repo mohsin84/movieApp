@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.item_shelve_item.view.item_shelve_recycler_view
 import kotlinx.android.synthetic.main.item_shelve_item.view.item_title_text
 import mohsin.reza.movieapp.R
-import mohsin.reza.movieapp.network.model.GenreType
 import mohsin.reza.movieapp.network.model.Movie
 import mohsin.reza.movieapp.network.model.ShelveItem
 import mohsin.reza.movieapp.utils.ScreenUtils
@@ -31,8 +30,7 @@ class ShelveViewHolder constructor(
     }
 
     override fun onRefreshView(model: ShelveItem) {
-        val genreType: GenreType? = GenreType.values().find { it.Id == model.genreId }
-        titleText.text = genreType?.genreTitle ?: GenreType.UNKNOWN.genreTitle
+        titleText.text = model.title
         adapter.items = model.movieList
         val visibility = model.movieList.isNotEmpty()
         itemView.isVisible = visibility
@@ -47,6 +45,5 @@ class ShelveViewHolder constructor(
             0,
             itemPadding
         )
-        recyclerView.setPadding(itemPadding, 0, itemPadding, 0)
     }
 }

@@ -1,11 +1,11 @@
 package mohsin.reza.movieapp.network.model
 
 data class ShelveItem(
-    val genreId: Int,
+    val title: String,
     val movieList: List<Movie>
 )
 
-enum class GenreType(val Id: Int, val genreTitle: String) {
+enum class GenreType(val genreId: Int, val genreTitle: String) {
     ACTION(28, "Action"),
     ADVENTURE(12, "Adventure"),
     ANIMATION(16, "Animation"),
@@ -25,5 +25,15 @@ enum class GenreType(val Id: Int, val genreTitle: String) {
     THRILLER(53, "Thriller"),
     WAR(10752, "War"),
     WESTERN(37, "Western"),
-    UNKNOWN(0, "Unknown")
+    UNKNOWN(0, "Unknown");
+
+    companion object {
+        private val genreTypeMap: Map<Int, GenreType> =
+            values().associateBy { it.genreId }
+
+        fun getTitleFromId(id: Int): String {
+            val genre = genreTypeMap.getOrElse(id) { UNKNOWN }
+            return genre.genreTitle
+        }
+    }
 }

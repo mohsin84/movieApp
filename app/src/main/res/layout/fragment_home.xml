@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:paddingTop="@dimen/spacing_ml"
-        android:paddingBottom="@dimen/home_carousel_bottom_padding"
+        android:paddingBottom="@dimen/spacing_l"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_shelve_item"/>
 

@@ -1,6 +1,7 @@
 package mohsin.reza.movieapp.network
 
 import io.reactivex.Observable
+import mohsin.reza.movieapp.network.model.GenreType
 import mohsin.reza.movieapp.network.model.Genres
 import mohsin.reza.movieapp.network.model.Home
 import mohsin.reza.movieapp.network.model.Images
@@ -33,9 +34,10 @@ class MovieRepository(private val movieServices: MovieServices) {
         }
         // no of keys (genreId) is constant max 19, based on the genreConfig so this is O(1)
         hashMovies.entries.forEach {
-            shelveItemList.add(ShelveItem(it.key, it.value.toList()))
+            val genreTitle = GenreType.getTitleFromId(it.key)
+            shelveItemList.add(ShelveItem(genreTitle, it.value.toList()))
         }
-        shelveItemList.asSequence().sortedBy { it.genreId }.toList()
+        shelveItemList.asSequence().sortedBy { it.title }.toList()
     }
 
     fun getPopularMoviesList(): Observable<List<ShelveItem>> {

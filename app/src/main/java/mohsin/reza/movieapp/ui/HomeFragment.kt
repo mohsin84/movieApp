@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.fragment_home.home_page_recycler_view
 import mohsin.reza.movieapp.App
 import mohsin.reza.movieapp.R
 import mohsin.reza.movieapp.network.model.ResourceState
+import mohsin.reza.movieapp.utils.Navigator
 import mohsin.reza.movieapp.utils.ViewModelFactory
 import mohsin.reza.movieapp.utils.safeSize
 import timber.log.Timber
@@ -23,6 +24,10 @@ class HomeFragment : Fragment() {
     private val viewModel by lazy {
         ViewModelProviders.of(this, homePageVMFactory).get(HomePageVM::class.java)
     }
+
+    @Inject
+    lateinit var navigator: Navigator
+
     private val homePageRecyclerView
         get() = home_page_recycler_view
 
@@ -44,7 +49,9 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        homePageRecyclerView.adapter = HomePageRecyclerViewAdapter({})
+        homePageRecyclerView.adapter = HomePageRecyclerViewAdapter { movie ->
+            navigator.openMovieDetails(movie)
+        }
         viewModel.requestMovieList()
         viewModel.movieListLiveData.observe(viewLifecycleOwner, Observer { resource ->
             when (resource.status) {
@@ -61,4 +68,5 @@ class HomeFragment : Fragment() {
             Timber.d("Data found ${resource.status} ${resource.data.safeSize}")
         })
     }
+
 }

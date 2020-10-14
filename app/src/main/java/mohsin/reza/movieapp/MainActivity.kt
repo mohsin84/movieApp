@@ -2,20 +2,28 @@ package mohsin.reza.movieapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentTransaction
-import mohsin.reza.movieapp.ui.HomeFragment
-import mohsin.reza.movieapp.utils.switchFragment
+import mohsin.reza.movieapp.utils.Navigator
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var navigator: Navigator
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        App.app.appComponent.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        supportFragmentManager.switchFragment(
-            R.id.main_content_container,
-            HomeFragment::class.java.name,
-            { HomeFragment() },
-            FragmentTransaction::replace
+        
+        navigator.bind(
+            fragmentManager = supportFragmentManager,
+            containerId = R.id.main_content_container
         )
+        navigator.openHome()
+    }
+
+    override fun onDestroy() {
+        navigator.unbind()
+        super.onDestroy()
     }
 }

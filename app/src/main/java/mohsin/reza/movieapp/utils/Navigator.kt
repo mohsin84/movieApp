@@ -32,9 +32,11 @@ class Navigator {
     }
 
     fun openMovieDetails(movie: Movie) {
-        addFragment(MovieDetailsFragment::class.java.name) {
-            MovieDetailsFragment()
-        }
+        fragmentManager?.addFragment(
+            containerId,
+            MovieDetailsFragment::class.java.name,
+            MovieDetailsFragment.newInstance(movie)
+        )
     }
 
     private inline fun <reified T : Fragment> switchFragment(
@@ -42,15 +44,5 @@ class Navigator {
         changes: FragmentTransaction.() -> T
     ) {
         fragmentManager?.switchFragment(containerId, tag, changes, FragmentTransaction::replace)
-    }
-
-    private inline fun <reified T : Fragment> addFragment(
-        tag: String? = null,
-        changes: FragmentTransaction.() -> T
-    ) {
-        fragmentManager?.beginTransaction()?.let {
-            val fragment = changes(it)
-            it.add(containerId, fragment, tag).addToBackStack(tag)
-        }
     }
 }

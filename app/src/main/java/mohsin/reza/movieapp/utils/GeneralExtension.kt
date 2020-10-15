@@ -29,6 +29,23 @@ inline fun <reified T : Fragment> FragmentManager.switchFragment(
     return fragment
 }
 
+fun FragmentManager.addFragment(
+    @IdRes containerId: Int,
+    fragmentTag: String? = null,
+    fragment: Fragment
+) {
+    this.beginTransaction().apply {
+        setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+        val oldFragment = findFragmentByTag(fragmentTag)
+        if (oldFragment != null) {
+            popBackStack(fragmentTag, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        }
+        add(containerId, fragment, fragmentTag)
+        addToBackStack(fragmentTag)
+        commit()
+    }
+}
+
 val <T> List<T>?.safeSize: Int
     get() {
         return this?.size ?: 0

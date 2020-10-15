@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/item_movie_poster_image"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/movie_poster_height"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/backgrounds/scenic" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vertical_guideline"
+        android:layout_width="1dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontal_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <TextView
+        android:id="@+id/movie_title_text"
+        style="@style/MovieTextView"
+        android:textSize="@dimen/textSize_l"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/vertical_guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_guideline"
+        tools:text="Enola Holmes" />
+
+    <TextView
+        android:id="@+id/movie_details_text"
+        style="@style/MovieTextView"
+        android:layout_marginTop="@dimen/spacing_s"
+        android:textSize="@dimen/textSize_s"
+        app:layout_constraintEnd_toStartOf="@id/vertical_guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/movie_title_text"
+        tools:text="Action" />
+
+    <View
+        android:id="@+id/item_hero_carousel_left_gradient"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/movie_details_gradient"
+        app:layout_constraintBottom_toBottomOf="@id/movie_details_text"
+        app:layout_constraintEnd_toEndOf="@id/vertical_guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/movie_title_text"
+        tools:background="@drawable/movie_details_gradient"
+        tools:visibility="visible" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/item_movie_poster_image" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

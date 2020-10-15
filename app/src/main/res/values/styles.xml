@@ -11,4 +11,23 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
+    <style name="MovieTextView">
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/spacing_ml</item>
+        <item name="android:layout_marginEnd">@dimen/spacing_m</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:shadowColor">@color/text_shadow</item>
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowRadius">2</item>
+    </style>
+
+    <style name="LoadingProgressBar">
+        <item name="android:layout_width">@dimen/progress_bar_height</item>
+        <item name="android:layout_height">@dimen/progress_bar_height</item>
+        <item name="android:theme">@style/AppTheme</item>
+    </style>
 </resources>

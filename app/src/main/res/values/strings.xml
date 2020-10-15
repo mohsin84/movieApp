@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Movie app</string>
+    <string name="retry">Retry</string>
+    <string name="error_message_generic">Sorry something went wrong. Please try again</string>
+    <string name="error_message_network">You are not connected to internet</string>
+    <string name="error_invalid_response">There is an issue retrieving data. Please refresh your app.</string>
 </resources>

@@ -14,12 +14,14 @@ class MainActivity : AppCompatActivity() {
         App.app.appComponent.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        
+
         navigator.bind(
             fragmentManager = supportFragmentManager,
             containerId = R.id.main_content_container
         )
-        navigator.openHome()
+        if (savedInstanceState == null) {
+            navigator.openHome()
+        }
     }
 
     override fun onDestroy() {

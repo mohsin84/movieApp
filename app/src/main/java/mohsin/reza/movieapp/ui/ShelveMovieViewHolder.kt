@@ -33,6 +33,7 @@ class ShelveMovieViewHolder constructor(
         val imageUrl = "$IMAGE_BASE_URL$POSTER_SIZE${model.posterPath}"
         GlideApp.with(movieImageView)
             .load(imageUrl)
+            .centerCrop()
             .fallback(R.drawable.place_holder_tile)
             .error(R.drawable.place_holder_tile)
             .into(movieImageView)

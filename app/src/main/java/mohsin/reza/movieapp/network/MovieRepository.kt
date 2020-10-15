@@ -27,12 +27,12 @@ class MovieRepository(private val movieServices: MovieServices) {
             movie.genreIds.forEach {
                 val list: MutableList<Movie> = hashMovies.get(key = it) ?: mutableListOf()
                 list.add(movie)
-                // this is the main reason for using a HasMap rather two list,
+                // this is the main reason for using a HasMap rather two nested list,
                 // I don't need to do a find here to decide where to put Movie Item
                 hashMovies[it] = list
             }
         }
-        // no of keys (genreId) is constant max 19, based on the genreConfig so this is O(1)
+        // no of keys (genreId) is constant (max 19), based on the genreConfig so this is O(1)
         hashMovies.entries.forEach {
             val genreTitle = GenreType.getTitleFromId(it.key)
             shelveItemList.add(ShelveItem(genreTitle, it.value.toList()))

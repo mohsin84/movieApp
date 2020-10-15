@@ -10,6 +10,7 @@ import mohsin.reza.movieapp.network.model.ShelveItem
 import mohsin.reza.movieapp.ui.HomePageVM
 import mohsin.reza.movieapp.utils.ConnectionUtil
 import mohsin.reza.movieapp.utils.OffLineConnectionException
+import mohsin.reza.movieapp.utils.safeSize
 import mohsin.reza.movieapp.utils.scheduler.TestSchedulers
 import okhttp3.MediaType
 import okhttp3.ResponseBody
@@ -60,7 +61,7 @@ class HomePageVMTest {
 
         // then
         viewModel.movieListLiveData.observeForever {
-            Assert.assertEquals(resultsValid, it.data)
+            Assert.assertEquals(resultsValid.size, it.data.safeSize)
         }
     }
 

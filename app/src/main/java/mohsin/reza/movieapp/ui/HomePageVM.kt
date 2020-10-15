@@ -7,7 +7,6 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import mohsin.reza.movieapp.network.MovieRepository
 import mohsin.reza.movieapp.network.model.Resource
-import mohsin.reza.movieapp.network.model.ShelveItem
 import mohsin.reza.movieapp.utils.scheduler.Schedulers
 import javax.inject.Inject
 
@@ -18,9 +17,9 @@ class HomePageVM @Inject constructor(
 
     private val compositeDisposable = CompositeDisposable()
 
-    private val movieListMutableLiveData = MutableLiveData<Resource<List<ShelveItem>>>()
+    private val movieListMutableLiveData = MutableLiveData<Resource<List<ShelveViewModel>>>()
 
-    val movieListLiveData: LiveData<Resource<List<ShelveItem>>>
+    val movieListLiveData: LiveData<Resource<List<ShelveViewModel>>>
         get() = movieListMutableLiveData
 
     fun requestMovieList() {
@@ -33,7 +32,12 @@ class HomePageVM @Inject constructor(
                 movieListMutableLiveData.postValue(Resource.error(e))
             }
             .subscribe {
-                movieListMutableLiveData.postValue(Resource.success(it))
+                val list = mutableListOf<ShelveViewModel>()
+                it.map { shelveItem ->
+                    val item = ShelveViewModel(shelveItem)
+                    list.add(item)
+                }
+                movieListMutableLiveData.postValue(Resource.success(list))
             }.addTo(compositeDisposable)
     }
 

@@ -14,8 +14,7 @@ open class HomePageRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val size = items?.size ?: 1
-        items?.get(position % size)?.let { shelveItem ->
+        items?.get(position)?.let { shelveItem ->
             (holder as? ShelveViewHolder)?.updateModel(shelveItem)
         }
     }

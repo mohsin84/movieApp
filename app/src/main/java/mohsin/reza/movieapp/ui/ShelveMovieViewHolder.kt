@@ -20,7 +20,7 @@ class ShelveMovieViewHolder constructor(
 
     init {
         itemView.setOnClickListener {
-            onClick.invoke(model)
+            onClick(model)
         }
     }
 

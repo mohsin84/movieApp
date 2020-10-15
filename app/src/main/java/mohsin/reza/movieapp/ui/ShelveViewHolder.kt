@@ -25,16 +25,17 @@ class ShelveViewHolder constructor(
     private val itemPadding = ScreenUtils.getDimen(R.dimen.spacing_s)
     private var isSavingState = false
     private val selectedStateObserver = Observer<Parcelable> { if (!isSavingState) refreshState() }
+    private val recyclerViewScroller = object : RecyclerView.OnScrollListener() {
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            isSavingState = true
+            model.selectedScrollState.value = recyclerView.layoutManager!!.onSaveInstanceState()
+            isSavingState = false
+        }
+    }
 
     init {
         recyclerView.adapter = ShelveRecyclerViewAdapter(onClick)
-        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                isSavingState = true
-                model.selectedScrollState.value = recyclerView.layoutManager!!.onSaveInstanceState()
-                isSavingState = false
-            }
-        })
+        recyclerView.addOnScrollListener(recyclerViewScroller)
     }
 
     override fun onRefreshView(model: ShelveViewModel) {

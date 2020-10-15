@@ -7,7 +7,6 @@ import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import kotlin.math.roundToInt
 
 inline fun <reified T : Fragment> FragmentManager.switchFragment(
     @IdRes containerId: Int,
@@ -50,8 +49,6 @@ val <T> List<T>?.safeSize: Int
     get() {
         return this?.size ?: 0
     }
-
-fun px3to2HeightFromWidth(widthPx: Int): Int = (widthPx * 1.5).roundToInt()
 
 val Context.isInternetConnected: Boolean
     get() {

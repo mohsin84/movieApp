@@ -28,7 +28,7 @@ class MovieRepository(private val movieServices: MovieServices) {
                 val list: MutableList<Movie> = hashMovies.get(key = it) ?: mutableListOf()
                 list.add(movie)
                 // this is the main reason for using a HasMap rather two nested list,
-                // I don't need to do a find here to decide where to put Movie Item
+                // I don't need to do a find{} here to decide where to put Movie Item
                 hashMovies[it] = list
             }
         }

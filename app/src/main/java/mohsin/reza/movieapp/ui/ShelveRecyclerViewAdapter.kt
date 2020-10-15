@@ -14,8 +14,7 @@ open class ShelveRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val size = items?.size ?: 1
-        items?.get(position % size)?.let { movie ->
+        items?.get(position)?.let { movie ->
             (holder as? ShelveMovieViewHolder)?.updateModel(movie)
         }
     }

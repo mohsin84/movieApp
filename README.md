@@ -1,7 +1,7 @@
 # movieApp
 
 <div align="center">
-    <img src="https://github.com/mohsin84/movieApp/blob/main/movie_app.gif" width="600px"</img> 
+    <img src="https://github.com/mohsin84/movieApp/blob/main/movie_app.gif" width="400px"</img> 
 </div>
 
 This app get data from  <a href="https://developers.themoviedb.org/3/movies/get-top-rated-movies">movie data base api</a> and show popular movie items in a list of horizontal shelves where each shelve show list of movie poster. Clicking any of the tile will open movie details page which show full screen poster with some movie information overlayed on the image. It’s a complete MVVM project that use dependency injection

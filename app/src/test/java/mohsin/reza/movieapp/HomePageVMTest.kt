@@ -74,7 +74,6 @@ class HomePageVMTest {
         )
 
         // when
-        // when
         viewModel.requestMovieList()
 
         // then look for empty List

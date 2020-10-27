@@ -12,7 +12,7 @@ import mohsin.reza.movieapp.utils.ConnectionUtil
 import mohsin.reza.movieapp.utils.OffLineConnectionException
 import mohsin.reza.movieapp.utils.safeSize
 import mohsin.reza.movieapp.utils.scheduler.TestSchedulers
-import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.ResponseBody
 import org.junit.Assert
 import org.junit.Rule
@@ -42,7 +42,7 @@ class HomePageVMTest {
     private val noInternetException = OffLineConnectionException()
 
     private val error = HttpException(
-        Response.error<String>(400, ResponseBody.create(MediaType.parse(""), "content"))
+        Response.error<String>(400, ResponseBody.create("".toMediaTypeOrNull(), "content"))
     )
 
     @get:Rule

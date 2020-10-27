@@ -30,7 +30,7 @@ object Versions {
     const val material = "1.0.0"
     const val mockk = "1.9"
     const val moshi = "1.6.0"
-    const val okhttp3 = "3.10.0"
+    const val okhttp3 = "4.4.0"
     const val okhttpLegacy = "2.7.5"
     const val recycler = "1.0.0"
     const val retrofit = "2.3.0"

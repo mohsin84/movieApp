@@ -24,7 +24,15 @@ class HomePageVM @Inject constructor(
 
     fun requestMovieList() {
         movieRepository.getPopularMoviesList()
-            .subscribeOn(schedulers.main())
+            .map {
+                val list = mutableListOf<ShelveViewModel>()
+                it.map { shelveItem ->
+                    val item = ShelveViewModel(shelveItem)
+                    list.add(item)
+                }
+                list
+            }
+            .observeOn(schedulers.main())
             .doOnSubscribe {
                 movieListMutableLiveData.postValue(Resource.loading())
             }
@@ -32,12 +40,7 @@ class HomePageVM @Inject constructor(
                 movieListMutableLiveData.postValue(Resource.error(e))
             }
             .subscribe {
-                val list = mutableListOf<ShelveViewModel>()
-                it.map { shelveItem ->
-                    val item = ShelveViewModel(shelveItem)
-                    list.add(item)
-                }
-                movieListMutableLiveData.postValue(Resource.success(list))
+                movieListMutableLiveData.postValue(Resource.success(it))
             }.addTo(compositeDisposable)
     }
 

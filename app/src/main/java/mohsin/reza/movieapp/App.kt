@@ -14,7 +14,7 @@ import java.net.SocketException
 /**
  * Application object for library initialisation
  */
-class App : Application() {
+open class App : Application() {
 
     companion object {
         lateinit var app: App
@@ -65,7 +65,7 @@ class App : Application() {
         return Timber.DebugTree()
     }
 
-    fun initialiseAppComponent(): AppComponent {
+    open fun initialiseAppComponent(): AppComponent {
         return DaggerAppComponent.builder()
             .appModule(AppModule(this))
             .networkModule(NetworkModule(this))

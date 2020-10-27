@@ -7,8 +7,11 @@ import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import io.reactivex.schedulers.Schedulers
+import mohsin.reza.movieapp.network.AuthInterceptor
 import mohsin.reza.movieapp.network.MovieRepository
 import mohsin.reza.movieapp.network.MovieServices
+import mohsin.reza.movieapp.network.NetworkSettings
+import mohsin.reza.movieapp.network.NetworkSettingsImpl
 import mohsin.reza.movieapp.utils.scheduler.AppSchedulers
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -46,6 +49,29 @@ open class NetworkModule(val application: Application, private val versionName: 
 
     @Singleton
     @Provides
+    open fun provideNetworkSettings(): NetworkSettings = NetworkSettingsImpl()
+
+    @Singleton
+    @Provides
+    open fun provideAuthInterceptor(networkSettings: NetworkSettings): AuthInterceptor {
+        return AuthInterceptor()
+    }
+
+    @Singleton
+    @Provides
+    fun provideOkHttpClient(
+        authInterceptor: AuthInterceptor
+    ): OkHttpClient {
+        val builder = OkHttpClient.Builder()
+        builder.connectTimeout(TIMEOUT, TimeUnit.SECONDS)
+        builder.writeTimeout(TIMEOUT, TimeUnit.SECONDS)
+        builder.readTimeout(TIMEOUT, TimeUnit.SECONDS)
+        builder.addInterceptor(authInterceptor)
+        return builder.build()
+    }
+
+    @Singleton
+    @Provides
     fun provideRetrofit(
         httpClient: OkHttpClient,
         rxJava2CallAdapterFactory: RxJava2CallAdapterFactory,
@@ -56,17 +82,6 @@ open class NetworkModule(val application: Application, private val versionName: 
         .baseUrl(BASE_URL)
         .client(httpClient)
         .build()
-
-    @Singleton
-    @Provides
-    fun provideOkHttpClient(
-    ): OkHttpClient {
-        val builder = OkHttpClient.Builder()
-        builder.connectTimeout(TIMEOUT, TimeUnit.SECONDS)
-        builder.writeTimeout(TIMEOUT, TimeUnit.SECONDS)
-        builder.readTimeout(TIMEOUT, TimeUnit.SECONDS)
-        return builder.build()
-    }
 
     @Provides
     @Singleton

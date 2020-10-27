@@ -8,7 +8,7 @@ import mohsin.reza.movieapp.network.MovieServices
 import mohsin.reza.movieapp.network.model.Home
 import mohsin.reza.movieapp.network.model.Movie
 import mohsin.reza.movieapp.network.model.ShelveItem
-import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.ResponseBody
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -34,7 +34,7 @@ class MovieRepositoryTest {
         Home(1, 1000, 500, listOf(movie1, movie2, movie3, movie4, movie5, movie6, movie7))
 
     private val errorResult = HttpException(
-        Response.error<String>(400, ResponseBody.create(MediaType.parse(""), "content"))
+        Response.error<String>(400, ResponseBody.create("".toMediaTypeOrNull(), "content"))
     )
 
     @Test
@@ -88,7 +88,6 @@ class MovieRepositoryTest {
         assertEquals(true, list.isEmpty())
         // verify list size
         assertEquals(0, size)
-
     }
 
     @Test

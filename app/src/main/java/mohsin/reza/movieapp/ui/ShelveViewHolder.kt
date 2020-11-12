@@ -6,9 +6,8 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.item_shelve_item.view.item_shelve_recycler_view
-import kotlinx.android.synthetic.main.item_shelve_item.view.item_title_text
 import mohsin.reza.movieapp.R
+import mohsin.reza.movieapp.databinding.ItemShelveItemBinding
 import mohsin.reza.movieapp.network.model.Movie
 import mohsin.reza.movieapp.utils.ScreenUtils
 import mohsin.reza.movieapp.utils.ViewHolder
@@ -16,10 +15,11 @@ import mohsin.reza.movieapp.utils.ViewHolder
 class ShelveViewHolder constructor(
     parent: ViewGroup,
     onClick: (Movie) -> Unit
-) : ViewHolder<ShelveViewModel>(parent, R.layout.item_shelve_item) {
+) : ViewHolder<ShelveViewModel, ItemShelveItemBinding>(parent, R.layout.item_shelve_item) {
 
-    private val recyclerView = itemView.item_shelve_recycler_view
-    private val titleText = itemView.item_title_text
+    override var binding = ItemShelveItemBinding.bind(itemView)
+    private val recyclerView = binding.itemShelveRecyclerView
+    private val titleText = binding.itemTitleText
     private val adapter: ShelveRecyclerViewAdapter
         get() = recyclerView.adapter as ShelveRecyclerViewAdapter
     private val itemPadding = ScreenUtils.getDimen(R.dimen.spacing_s)
@@ -34,8 +34,8 @@ class ShelveViewHolder constructor(
     }
 
     init {
-        recyclerView.adapter = ShelveRecyclerViewAdapter(onClick)
-        recyclerView.addOnScrollListener(recyclerViewScroller)
+        binding.itemShelveRecyclerView.adapter = ShelveRecyclerViewAdapter(onClick)
+        binding.itemShelveRecyclerView.addOnScrollListener(recyclerViewScroller)
     }
 
     override fun onRefreshView(model: ShelveViewModel) {

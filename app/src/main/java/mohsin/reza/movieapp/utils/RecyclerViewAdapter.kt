@@ -2,7 +2,7 @@ package mohsin.reza.movieapp.utils
 
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class RecyclerViewAdapter<T : Any, VH : ViewHolder<*>> :
+abstract class RecyclerViewAdapter<T : Any, VH : ViewHolder<*, *>> :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var items: List<T>? = null
         set(value) {

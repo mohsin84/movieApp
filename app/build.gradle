@@ -28,6 +28,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    viewBinding {
+        enabled = true
+    }
     lintOptions {
         // set to true to turn off analysis progress reporting by lint
         quiet true

@@ -10,8 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 /**
  * Abstract class for ViewHolder to use with [ListRecyclerAdapter], subclassed just have to implement onRefreshView method
  */
-abstract class ViewHolder<T : Any>(view: View) : RecyclerView.ViewHolder(view), ModelViewHolder<T> {
+abstract class ViewHolder<T : Any, B : Any>(view: View) : RecyclerView.ViewHolder(view),
+    ModelViewHolder<T> {
     override lateinit var model: T
+    abstract var binding: B
     val context: Context
         get() = itemView.context
 

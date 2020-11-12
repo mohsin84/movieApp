@@ -7,14 +7,11 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import io.reactivex.exceptions.CompositeException
-import kotlinx.android.synthetic.main.fragment_home.content_error_message
-import kotlinx.android.synthetic.main.fragment_home.home_page_recycler_view
-import kotlinx.android.synthetic.main.fragment_home.home_progress_bar
-import kotlinx.android.synthetic.main.fragment_home.retry_button
 import mohsin.reza.movieapp.App
 import mohsin.reza.movieapp.R
+import mohsin.reza.movieapp.databinding.FragmentHomeBinding
 import mohsin.reza.movieapp.network.model.ResourceState
 import mohsin.reza.movieapp.utils.Navigator
 import mohsin.reza.movieapp.utils.ViewModelFactory
@@ -28,17 +25,19 @@ class HomeFragment : Fragment() {
     lateinit var homePageVMFactory: ViewModelFactory<HomePageVM>
 
     private val viewModel by lazy {
-        ViewModelProviders.of(this, homePageVMFactory).get(HomePageVM::class.java)
+        ViewModelProvider(this, homePageVMFactory).get(HomePageVM::class.java)
     }
 
     @Inject
     lateinit var navigator: Navigator
 
     private val homePageRecyclerView
-        get() = home_page_recycler_view
+        get() = binding.homePageRecyclerView
 
     private val adapter: HomePageRecyclerViewAdapter
         get() = homePageRecyclerView.adapter as HomePageRecyclerViewAdapter
+
+    private lateinit var binding: FragmentHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +49,8 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        binding = FragmentHomeBinding.inflate(inflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,15 +61,15 @@ class HomeFragment : Fragment() {
         viewModel.requestMovieList()
         viewModel.movieListLiveData.observe(viewLifecycleOwner, Observer { resource ->
             val isError = resource.status == ResourceState.ERROR
-            home_progress_bar.isVisible = resource.status == ResourceState.LOADING
-            retry_button.isVisible = isError
-            content_error_message.isVisible = isError
+            binding.homeProgressBar.isVisible = resource.status == ResourceState.LOADING
+            binding.retryButton.isVisible = isError
+            binding.contentErrorMessage.isVisible = isError
             if (resource.status == ResourceState.SUCCESS) {
                 adapter.items = resource.data ?: emptyList()
             }
             resource.error?.let { setUpErrorMessage(it) }
         })
-        retry_button.setOnClickListener {
+        binding.retryButton.setOnClickListener {
             viewModel.requestMovieList()
         }
     }
@@ -89,6 +89,6 @@ class HomeFragment : Fragment() {
                 else -> R.string.error_message_generic
             }
         )
-        content_error_message.text = errorMessage
+        binding.contentErrorMessage.text = errorMessage
     }
 }

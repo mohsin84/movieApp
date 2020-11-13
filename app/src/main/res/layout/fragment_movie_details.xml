@@ -6,13 +6,20 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
+    <mohsin.reza.movieapp.widget.AppTopBar
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/back_button_height"
+        android:background="@color/colorPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <ImageView
         android:id="@+id/item_movie_poster_image"
         android:layout_width="0dp"
         android:layout_height="@dimen/movie_poster_height"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_bar"
         tools:src="@tools:sample/backgrounds/scenic" />
 
     <androidx.constraintlayout.widget.Guideline

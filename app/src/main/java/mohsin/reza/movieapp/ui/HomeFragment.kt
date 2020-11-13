@@ -12,6 +12,7 @@ import io.reactivex.exceptions.CompositeException
 import mohsin.reza.movieapp.App
 import mohsin.reza.movieapp.R
 import mohsin.reza.movieapp.databinding.FragmentHomeBinding
+import mohsin.reza.movieapp.databinding.NetworkStatusLayoutBinding
 import mohsin.reza.movieapp.network.model.ResourceState
 import mohsin.reza.movieapp.utils.Navigator
 import mohsin.reza.movieapp.utils.ViewModelFactory
@@ -39,6 +40,8 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
 
+    private lateinit var networkStatusLayoutBinding: NetworkStatusLayoutBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         App.app.appComponent.inject(this)
@@ -50,6 +53,8 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater)
+        // binding the include layout here with root layout
+        networkStatusLayoutBinding = NetworkStatusLayoutBinding.bind(binding.root)
         return binding.root
     }
 
@@ -58,18 +63,20 @@ class HomeFragment : Fragment() {
         homePageRecyclerView.adapter = HomePageRecyclerViewAdapter { movie ->
             navigator.openMovieDetails(movie)
         }
+        binding.topBar.titleText = "Popular movies"
         viewModel.requestMovieList()
         viewModel.movieListLiveData.observe(viewLifecycleOwner, Observer { resource ->
             val isError = resource.status == ResourceState.ERROR
-            binding.homeProgressBar.isVisible = resource.status == ResourceState.LOADING
-            binding.retryButton.isVisible = isError
-            binding.contentErrorMessage.isVisible = isError
+            networkStatusLayoutBinding.homeProgressBar.isVisible =
+                resource.status == ResourceState.LOADING
+            networkStatusLayoutBinding.retryButton.isVisible = isError
+            networkStatusLayoutBinding.contentErrorMessage.isVisible = isError
             if (resource.status == ResourceState.SUCCESS) {
                 adapter.items = resource.data ?: emptyList()
             }
             resource.error?.let { setUpErrorMessage(it) }
         })
-        binding.retryButton.setOnClickListener {
+        networkStatusLayoutBinding.retryButton.setOnClickListener {
             viewModel.requestMovieList()
         }
     }
@@ -89,6 +96,6 @@ class HomeFragment : Fragment() {
                 else -> R.string.error_message_generic
             }
         )
-        binding.contentErrorMessage.text = errorMessage
+        networkStatusLayoutBinding.contentErrorMessage.text = errorMessage
     }
 }

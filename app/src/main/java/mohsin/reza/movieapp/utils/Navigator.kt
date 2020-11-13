@@ -32,11 +32,11 @@ class Navigator {
     }
 
     fun openMovieDetails(movie: Movie) {
-        fragmentManager?.addFragment(
-            containerId,
-            MovieDetailsFragment::class.java.name,
-            MovieDetailsFragment.newInstance(movie)
-        )
+        addFragment(MovieDetailsFragment::class.java.name, MovieDetailsFragment.newInstance(movie))
+    }
+
+    private inline fun <reified T : Fragment> addFragment(tag: String, fragment: T) {
+        fragmentManager?.addFragment(containerId, tag, fragment)
     }
 
     private inline fun <reified T : Fragment> switchFragment(

@@ -5,6 +5,7 @@
     <dimen name="shelve_item_bottom_margin">24dp</dimen>
     <dimen name="shelve_item_width">105dp</dimen>
     <dimen name="shelve_item_height">160dp</dimen>
+    <dimen name="back_button_height">30dp</dimen>
     <dimen name="spacing_l">16dp</dimen>
     <dimen name="spacing_m">8dp</dimen>
     <dimen name="spacing_ml">12dp</dimen>

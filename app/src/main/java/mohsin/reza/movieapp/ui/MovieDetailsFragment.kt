@@ -5,11 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.fragment_movie_details.item_movie_poster_image
-import kotlinx.android.synthetic.main.fragment_movie_details.movie_details_text
-import kotlinx.android.synthetic.main.fragment_movie_details.movie_title_text
 import mohsin.reza.movieapp.App
 import mohsin.reza.movieapp.R
+import mohsin.reza.movieapp.databinding.FragmentMovieDetailsBinding
 import mohsin.reza.movieapp.di.GlideApp
 import mohsin.reza.movieapp.network.model.GenreType
 import mohsin.reza.movieapp.network.model.Movie
@@ -18,7 +16,7 @@ import mohsin.reza.movieapp.utils.POSTER_SIZE
 import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
 import org.joda.time.format.DateTimeFormat
-import java.util.Locale
+import java.util.*
 
 class MovieDetailsFragment : Fragment() {
 
@@ -37,6 +35,8 @@ class MovieDetailsFragment : Fragment() {
     private val movie: Movie?
         get() = arguments?.getParcelable(MOVIE_KEY)
 
+    private lateinit var binding: FragmentMovieDetailsBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         App.app.appComponent.inject(this)
@@ -47,7 +47,8 @@ class MovieDetailsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_movie_details, container, false)
+        binding = FragmentMovieDetailsBinding.inflate(inflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -56,9 +57,12 @@ class MovieDetailsFragment : Fragment() {
         var genreType = ""
         val releaseDate = DateTime.parse(movie?.releaseDate ?: "")
         val formattedDate = DateTime(releaseDate, DateTimeZone.getDefault()).toString(DATE_FORMAT)
+        val title = movie?.title ?: movie?.originalTitle ?: ""
 
         loadMoviePoster(url = imageUrl)
-        movie_title_text.text = movie?.title ?: movie?.originalTitle
+        binding.topBar.titleText = title
+        binding.topBar.backButtonVisibility = true
+        binding.movieTitleText.text = title
         movie?.genreIds?.map {
             genreType = genreType.plus(GenreType.getTitleFromId(it)).plus(" · ")
         }
@@ -66,15 +70,16 @@ class MovieDetailsFragment : Fragment() {
 
         val moveDetailsText =
             "$genreType\nRelease $formattedDate \nVote Average ${movie?.voteAverage ?: 0}"
-        movie_details_text.text = moveDetailsText
+        binding.movieDetailsText.text = moveDetailsText
     }
 
     private fun loadMoviePoster(url: String) {
-        GlideApp.with(item_movie_poster_image)
+        val imageView = binding.itemMoviePosterImage
+        GlideApp.with(imageView)
             .load(url)
             .centerCrop()
             .fallback(R.drawable.place_holder_tile)
             .error(R.drawable.place_holder_tile)
-            .into(item_movie_poster_image)
+            .into(imageView)
     }
 }

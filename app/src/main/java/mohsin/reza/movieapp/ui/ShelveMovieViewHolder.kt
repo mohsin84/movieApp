@@ -2,6 +2,7 @@ package mohsin.reza.movieapp.ui
 
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import mohsin.reza.movieapp.R
 import mohsin.reza.movieapp.databinding.ItemShelveMovieItemBinding
@@ -26,6 +27,11 @@ class ShelveMovieViewHolder constructor(
 
     override fun onRefreshView(model: Movie) {
         movieImageView.contentDescription = model.title
+        // compiler knows this is for tablet layout and null for mobile
+        binding.movieItemReviewText?.apply {
+            text = "review ${model.voteAverage}"
+            isVisible = model.voteAverage > 6
+        }
     }
 
     override fun onAttach() {

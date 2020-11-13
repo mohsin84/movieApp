@@ -17,7 +17,7 @@ object Versions {
     const val espresso = "3.1.1"
     const val glide = "4.8.0"
     const val glideTransformation = "3.1.1"
-    const val gradlePlugin = "3.5.3"
+    const val gradlePlugin = "4.0.0"
     const val gradleSpawn = "0.8.2"
     const val gradleVersions = "0.21.0"
     const val jodaTime = "2.9.9.4"
